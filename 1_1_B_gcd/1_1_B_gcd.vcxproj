@@ -20,10 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{C5B59C93-AB10-48C7-8D8F-EBAA2DD5EE32}</ProjectGuid>
-    <RootNamespace>My11A</RootNamespace>
+    <ProjectGuid>{169C955E-C598-4DF9-B380-2F7970D72B64}</ProjectGuid>
+    <RootNamespace>My11Bgcd</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
-    <ProjectName>1_1_A_insert_sort</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
