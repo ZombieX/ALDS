@@ -13,8 +13,8 @@ class queue {
 public:
 	queue() :tab{}, head{ 0 }, tail{0} {}
 
-	auto empty()const { 
-		return this->head == this->tail; 
+	auto empty()const {
+		return this->head == this->tail;
 		//return this->size() == 0;
 	}
 
@@ -45,7 +45,7 @@ public:
 
 	//template<class F>
 	auto print() {
-				
+
 		if (head <= tail) {
 			if (this->empty()) {
 				std::cout << "empty !\n";
@@ -83,64 +83,41 @@ struct element {
 	int resource;
 	//	bool finished =false;
 	int lap;
-	element() :element{"",0} {}
-	element(const std::string& s, int r) :name{ s }, resource{ r },lap{} {}
+	element() :element{ "",0 } {}
+	element(const std::string& s, int r) :name{ s }, resource{ r }, lap{} {}
 	friend std::ostream& operator<<(std::ostream& os, const element& e) {
 		return os << e.name << " " << e.resource;
 	}
 	auto result() {
 		std::cout << name << " " << lap;
-	} 
+	}
 };
-/*
-auto test() {
 
-	queue<int, 5> Q;
-	for (int i{1}; i <= 5; i++) {
-		Q.push(i);
-	}
 
-	Q.print();//1,2,3,4,5
-//	std::cout << Q.size() << "\n";
-
-	int accum{};
-	while (!Q.empty()) {
-		auto x = Q.pop();
-	//	std::cout << x << "\n";
-
-		if (x  > 1) {
-			Q.push(x-1);
-			std::cout << "size : " << Q.size();
-			std::cout << ", x : " << x << ", all : ";
-			Q.print();
-		}
-
-		++accum;
-	}
-	std::cout <<accum<<"\n";
-
-}
-*/
 int main() {
 
 	int N{}, cost{};
 	std::cin >> N >> cost;
 
+	//queue<element, size> que;
 	std::queue<element> que;
 	for (int i{}; i < N; i++) {
 		std::string name{};
 		int time{};
 		std::cin >> name >> time;
-		que.push(element{name,time});
+		que.push(element{ name,time });
 	}
+
+	//que.print();
 
 	unsigned long long acc{};
 	while (!que.empty()) {
-
-		auto x = que.front(); que.pop();
+		//auto x = que.pop();
+		auto x = que.back(); que.pop();
 		if (x.resource <= cost) {
 			acc += x.resource;
 			x.resource = 0;
+			//			std::cout << x;
 			std::cout << x.name << " " << acc << "\n";
 		}
 		else {
