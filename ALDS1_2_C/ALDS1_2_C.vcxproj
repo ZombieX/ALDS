@@ -23,7 +23,7 @@
     <ProjectGuid>{CD02CF04-0F7C-4E0D-A1DA-FE1A7FDF517D}</ProjectGuid>
     <RootNamespace>ALDS12C</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
-    <ProjectName>ALDS1_2_C_Stable</ProjectName>
+    <ProjectName>1_2_C_Stable</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
