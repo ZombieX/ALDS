@@ -1,7 +1,7 @@
 # ALDS
 My solutions of Algorithm and Data structure in Aizu Online Judge
 
-You can learn programming on [Aizu Online Judge][http://judge.u-aizu.ac.jp/onlinejudge/index.jsp]. 
+You can learn programming on [Aizu Online Judge](http://judge.u-aizu.ac.jp/onlinejudge/index.jsp ). 
 
 
 ## Purposes:
