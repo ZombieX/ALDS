@@ -27,7 +27,7 @@ If some accidents are made by my code, I do NOT have any responsivility.
 # 日本語ver
 
 ## 目的：
-このリポジトリは2つの目的で作られています。
+このリポジトリは2つの目的で作られています。  
 1． 回答コードのバックアップと公開  
 2． GitとGithubをMSVC 2015/2017とともに使用する練習
 
