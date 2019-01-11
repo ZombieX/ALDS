@@ -1,85 +1,97 @@
 
 #include<iostream>
 #include<vector>
-#include<utility>
 #include<memory>
+#include<algorithm>
 
-class node {
-	std::unique_ptr<node> np;
-	int id_;
+struct node {
 
-public:
-	using leaf_list_t = std::vector<int>;
-
-private:
-	leaf_list_t  clist;
-
-public:
-	node(int _id, node*np_, const std::vector<int>&v) :id_{ _id }, np{np_}, clist{ v }{}
-	node(int _id, node*np_, std::vector<int>&& v) :id_{ _id }, np{ np_ }, clist{ std::move(v) }{}
-	auto id()const { return id_; }
-	auto is_root()const { return np == nullptr; }
-	auto is_leaf()const { return clist.empty(); }
-	auto is_internode()const { return !( is_root() || is_leaf()  ); }
+	int index;
+	int depth;
+	int parent;
+	std::vector<int> id_list;
+	node() :index{ -1 }, depth{ 0 }, parent{-1}, id_list{}{}
 };
 
 
-class tree {
-	std::vector<node> v;
-public:
-	using node_t = node;
-	tree() {}
-	tree(int size_) :v{size_} {}
-	auto push(const node&n) { v.push_back(n); }
-	auto push(node&&n) { v.push_back(std::move(n)); }
+void set_depth(std::vector<node>*const list_, int index) {
+	auto&ref = *list_;
+	for (auto e : ref[index].id_list) {
+//		std::cout << index << "\n";
+/*		auto it = std::find_if(std::begin(ref), std::end(ref)
+			, [=](auto&x) {return x.index == e; }
+		);
 
-};
+		if (it != std::end(ref)) {
+			it->depth = ref[index].depth + 1;
+			set_depth(list_, it->index);
+		}*/
+
+		//more faster
+		ref[e].depth += ref[index].depth + 1;
+		set_depth(list_, ref[e].index);
+	}
+
+}
+
 
 int main() {
+	int n;
+	std::cin >> n;
 
-	std::vector<std::vector<int>>v;
+	std::vector<node> tree;
+	tree.resize(n);
 
-	int tree_size{};
-	std::cin >> tree_size;
-	v.resize(tree_size);
 
-	for (auto&e:v) {
-		int id{}, k{};
-		std::cin >> id >> k;
-		e.resize(k+2);
-		e[0] = id; e[1] = k;
+	for (int i{}; i < n;++i) {
+		int index_;
+		std::cin >> index_;
+		tree[index_].index = index_;
 
-		for (int i{ 2 }; i < e.size(); ++i)
-			std::cin >> e[i];
+		int size_;
+		std::cin >> size_;
+		tree[index_].id_list.resize(size_);
+		
+//		std::cout << index_<<" "<<size_<<" ";
+		for (auto& ce : tree[index_].id_list) {
+			std::cin >> ce;
+			tree[ce].parent = index_;
+//			std::cout << ce << " ";
+		}//std::cout << "\n";
 	}
 
-	for (int i{}; i < tree_size;++i) {
-		auto&e = v[i];
-		std::cout << "node " << e[0] << ": ";
-		for (int j{}; j < tree_size; ++j) {
-			if (i == j)continue;
-			auto&ej = v[j];
-			auto en = std::end(ej);
- 			auto exist = 
-				en != std::find(std::begin(ej),en, e[0]);
-			
-			std::cout << "parent = "
-				<< (exist ? ej[0] : -1) << ", ";
+	/*
+	for (auto&e : tree) {
+		std::cout << e.index<<" "<<e.id_list.size() << "\n";
+	}*/
 
-			std::cout << "depth = "
-				<< (!exist ? 0 : [&]() {
-					int depth = 0;
-					for (const auto&ee : e) {
-
-					}
-				}())
-				<< ", ";
+	int root_id{};
+	for (int i{}; i < n; ++i) {
+		if (tree[i].parent == -1) {
+			root_id = i;
+//			std::cout << i << "\n";
+			break;
 		}
-		//for (auto&ee : e)
-		//	std::cout << ee << " ";
-		//std::cout << "\n";
 	}
+//	std::cout << root_id << "\n";
+	set_depth(&tree, root_id);
 
+	for (const auto&e : tree) {
+		std::cout << "node " << e.index << ": ";
+		std::cout << "parent = " << e.parent<<", ";
+		std::cout << "depth = " << e.depth << ", ";
+		std::cout << (e.parent == -1 ? "root"
+			: e.id_list.empty() ? "leaf" : "internal node") << ", ";
 
-	return 0;
+		std::cout << "[";
+		if (!e.id_list.empty()) {
+			std::cout << e.id_list[0];
+			if (e.id_list.size() != 1)
+				for (unsigned i{ 1 }; i < e.id_list.size(); ++i)
+					std::cout << ", " << e.id_list[i];
+		}
+		std::cout << "]\n";
+
+	}
+	return 0; 
 }
